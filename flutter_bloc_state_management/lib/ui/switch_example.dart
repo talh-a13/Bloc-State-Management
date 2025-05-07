@@ -4,14 +4,14 @@ import 'package:flutter_bloc_state_management/bloc/switch/switch_bloc.dart';
 import 'package:flutter_bloc_state_management/bloc/switch/switch_event.dart';
 import 'package:flutter_bloc_state_management/bloc/switch/switch_state.dart';
 
-class Counter extends StatefulWidget {
-  const Counter({super.key});
+class SwitchScreen extends StatefulWidget {
+  const SwitchScreen({super.key});
 
   @override
-  State<Counter> createState() => _CounterState();
+  State<SwitchScreen> createState() => _SwitchScreenState();
 }
 
-class _CounterState extends State<Counter> {
+class _SwitchScreenState extends State<SwitchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,24 +29,36 @@ class _CounterState extends State<Counter> {
               BlocBuilder<SwitchBloc, SwitchStates>(
                 builder: (context, state) {
                   return Switch(
-                      value: state.isSwitch,
-                      onChanged: (newValue) {
-                        context
-                            .read<SwitchBloc>()
-                            .add(EnableorDisableNotification());
-                      });
+                    value: state.isSwitch,
+                    onChanged: (newValue) {
+                      context
+                          .read<SwitchBloc>()
+                          .add(EnableorDisableNotification());
+                    },
+                  );
                 },
-              )
+              ),
             ],
           ),
-          const SizedBox(
-            height: 20,
+          const SizedBox(height: 20),
+          BlocBuilder<SwitchBloc, SwitchStates>(
+            builder: (context, state) {
+              return Container(
+                height: 200,
+                color: Colors.red.withOpacity(state.slidervalue),
+              );
+            },
           ),
-          Container(
-            height: 200,
-            color: Colors.red.withOpacity(.2),
+          BlocBuilder<SwitchBloc, SwitchStates>(
+            builder: (context, state) {
+              return Slider(
+                value: state.slidervalue,
+                onChanged: (value) {
+                  context.read<SwitchBloc>().add(SliderEvent(value: value));
+                },
+              );
+            },
           ),
-          Slider(value: .4, onChanged: (value) {})
         ],
       ),
     );
