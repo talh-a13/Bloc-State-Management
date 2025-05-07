@@ -19,4 +19,5 @@ A Flutter application demonstrating state management using the BLoC (Business Lo
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/flutter_bloc_state_management.git
+   git clone https://github.com/talh-a13/flutter_bloc_state_management.git
+
